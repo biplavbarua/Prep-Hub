@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Quiz with Progress Bar</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f0f0f0;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		form {
+			max-width: 600px;
+			margin: 0 auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+
+		.progress-container {
+			width: 100%;
+			height: 30px;
+			background-color: #ddd;
+			border-radius: 5px;
+			margin-bottom: 20px;
+		}
+
+		.progress-bar {
+			height: 100%;
+			background-color: #4CAF50;
+			border-radius: 5px;
+			text-align: center;
+			line-height: 30px;
+			color: #fff;
+		}
+
+		/* Styling for the buttons */
+		button {
+			background-color: #4CAF50;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 10px;
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		button:hover {
+			background-color: #3e8e41;
+		}
+	</style>
+</head>
+<body>
+	<h1>Quiz with Progress Bar</h1>
+
+	<!-- Progress bar container -->
+	<div class="progress-container">
+		<div class="progress-bar" id="progress-bar" style="width: 0%">0%</div>
+	</div>
+
+	<form id="quiz-form" onsubmit="return false;">
+		<!-- Question 1 -->
+		<p>What is the capital of France?</p>
+		<label><input type="radio" name="q1" value="a">a) Paris</label><br>
+		<label><input type="radio" name="q1" value="b">b) London</label><br>
+		<label><input type="radio" name="q1" value="c">c) New York</label><br>
+
+		<!-- Question 2 -->
+		<p>What is the largest planet in our solar system?</p>
+		<label><input type="radio" name="q2" value="a">a) Earth</label><br>
+		<label><input type="radio" name="q2" value="b">b) Jupiter</label><br>
+		<label><input type="radio" name="q2" value="c">c) Mars</label><br>
+
+		<!-- Question 3 -->
+		<p>What is the highest mountain in the world?</p>
+		<label><input type="radio" name="q3" value="a">a) Mount Everest</label><br>
+		<label><input type="radio" name="q3" value="b">b) Mount Kilimanjaro</label><br>
+		<label><input type="radio" name="q3" value="c">c) Mount Fuji</label><br>
+
+		<!-- Submit button -->
+		<button onclick="submitQuiz()">Submit</button>
+	</form>
+
+	<script>
+		let progressBar = document.getElementById("progress-bar");
+let quizForm = document.getElementById("quiz-form");
+let score = 0;
+
+	// Function to submit the quiz and calculate the score
+	function submitQuiz() {
+		// Check if all questions have been answered
+		if (quizForm.q1.value && quizForm.q2.value && quizForm.q3.value) {
+			// Check the answers
+			if (quizForm.q1.value === "a") {
+				score++;
+			}
+			if (quizForm.q2.value === "b") {
+				score++;
+			}
+			if (quizForm.q3.value === "a") {
+				score++;
+			}
+
+			// Update the progress bar
+			let progress = Math.round(score / 3 * 100);
+			progressBar.style.width = progress + "%";
+			progressBar.innerHTML = progress + "%";
+
+			// Show the score
+			alert("You scored " + score + " out of 3.");
+
+			// Disable the form
+			for (let i = 0; i < quizForm.elements.length; i++) {
+				quizForm.elements[i].disabled = true;
+			}
+		} else {
+			alert("Please answer all questions before submitting.");
+		}
+	}
+</script>
